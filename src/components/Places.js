@@ -23,7 +23,7 @@ const Places = () => {
   }, []);
 
   const getPlaces = () => {
-    axios("http://localhost:3000/places/list")
+    axios("https://places-merncrud.herokuapp.com/places/list")
       .then((response) => {
         // console.log(response.data)
         setPlaces(response.data.places);
@@ -40,7 +40,7 @@ const Places = () => {
   const handleFormSubmit = (e) =>{
     e.preventDefault()
     setIsSubmitting(true)
-    axios.post("http://localhost:3000/places/add", addformvalues)
+    axios.post("https://places-merncrud.herokuapp.com/places/add", addformvalues)
     .then(response => {
       // console.log(response)
       if(response.status ===200) getPlaces()
@@ -64,7 +64,7 @@ const Places = () => {
   const handleFormUpdate = (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    axios.put("http://localhost:3000/places/update/" + addformvalues._id, addformvalues)
+    axios.put("https://places-merncrud.herokuapp.com/places/update/" + addformvalues._id, addformvalues)
     .then(response => {
       // console.log(response)
       if(response.status ===200) getPlaces()
@@ -93,7 +93,7 @@ const Places = () => {
 
   const getPlace = (id) => {
     console.log(id)
-    axios("http://localhost:3000/places/findbyid/" +id)
+    axios("https://places-merncrud.herokuapp.com/places/findbyid/" +id)
     .then(response => {
       const result= response.data
       if(response.status === 200) setAddformvalues({...addformvalues, ...result})
@@ -107,7 +107,7 @@ const Places = () => {
   const handleDelete = (id) =>{
     var result = window.confirm("Are you sure you want to delete this post?");
     if (result) {
-      axios.delete("http://localhost:3000/places/delete/" +id)
+      axios.delete("https://places-merncrud.herokuapp.com/places/delete/" +id)
       .then(response => {
         if(response.status === 200)
         getPlaces()
