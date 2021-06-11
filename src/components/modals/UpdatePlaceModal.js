@@ -1,20 +1,21 @@
 import React from "react";
 import { Modal, Button, Form, Spinner } from "react-bootstrap";
 
-const AddPlaceModal = ({
+const UpdatePlaceModal = ({
   show,
+  handleFormUpdate,
   handleClose,
-  handleFormSubmit,
   handleChange,
   isSubmitting,
+  addformvalues
 }) => {
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add a Place to visit next</Modal.Title>
+          <Modal.Title>Update Place</Modal.Title>
         </Modal.Header>
-        <Form onSubmit={handleFormSubmit}>
+        <Form onSubmit={handleFormUpdate}>
           <Modal.Body>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
@@ -23,6 +24,7 @@ const AddPlaceModal = ({
                 placeholder="enter name"
                 name="name"
                 onChange={handleChange}
+                value={addformvalues.name}
               />
             </Form.Group>
             <Form.Group controlId="type">
@@ -32,6 +34,7 @@ const AddPlaceModal = ({
                 placeholder="enter type of visit"
                 name="type"
                 onChange={handleChange}
+                value={addformvalues.type}
               />
             </Form.Group>
             <Form.Group controlId="description">
@@ -41,6 +44,7 @@ const AddPlaceModal = ({
                 placeholder="describe expected experience"
                 name="description"
                 onChange={handleChange}
+                value={addformvalues.description}
               />
             </Form.Group>
             <Form.Group controlId="friends">
@@ -50,6 +54,7 @@ const AddPlaceModal = ({
                 placeholder="friends to accompany"
                 name="friends"
                 onChange={handleChange}
+                value={addformvalues.friends}
               />
             </Form.Group>
             <Form.Group controlId="date">
@@ -59,6 +64,7 @@ const AddPlaceModal = ({
                 placeholder="pick date"
                 name="date"
                 onChange={handleChange}
+                value={addformvalues.date}
               />
             </Form.Group>
           </Modal.Body>
@@ -75,11 +81,11 @@ const AddPlaceModal = ({
                   role="status"
                   aria-hidden="true"
                 />
-                Saving...
+                Updating...
               </Button>
             ) : (
               <Button variant="primary" type="submit">
-                Save
+                Update
               </Button>
             )}
           </Modal.Footer>
@@ -89,4 +95,4 @@ const AddPlaceModal = ({
   );
 };
 
-export default AddPlaceModal;
+export default UpdatePlaceModal;
