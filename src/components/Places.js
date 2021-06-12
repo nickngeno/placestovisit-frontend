@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import axios from "axios";
 import AddPlaceModal from  '../components/modals/AddPlaceModal'
 import UpdatePlaceModal from "./modals/UpdatePlaceModal";
+import BeatLoader from "react-spinners/BeatLoader";
+import RenderTable from '../components/RenderTable'
+import SearchBar from "./SearchBar";
+// import { css } from '@emotion/react'
 
 const Places = () => {
   const [places, setPlaces] = useState([]);
   const [showAddmodal, setShowAddmodal] = useState(false);
   const [showUpdatemodal, setShowUpdatemodal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [addformvalues, setAddformvalues] = useState({
     _id: "",
     name: "",
@@ -27,6 +32,8 @@ const Places = () => {
       .then((response) => {
         // console.log(response.data)
         setPlaces(response.data.places);
+        setIsLoading(false)
+
       })
       .catch((err) => {
         console.log(err);
@@ -34,7 +41,7 @@ const Places = () => {
   };
 
   const handleClose = () => {
-    setShowAddmodal(false)
+    if(true) setShowAddmodal(false) || setShowUpdatemodal(false)
   }
 
   const handleFormSubmit = (e) =>{
@@ -92,7 +99,6 @@ const Places = () => {
   }
 
   const getPlace = (id) => {
-    console.log(id)
     axios("https://places-merncrud.herokuapp.com/places/findbyid/" +id)
     .then(response => {
       const result= response.data
@@ -120,42 +126,12 @@ const Places = () => {
 
   return (
     <>
+    
      <Button className="mt-5 mb-3" onClick={() => setShowAddmodal(true)} >Add place</Button>
-      <Table responsive striped bordered hover>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>Friends</th>
-            <th>Date</th>
-            <th colSpan="2" className="text-center">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          { places.map((place, index) => {
-            return (
-              <tr key={place._id}>
-                <td>{index +1}</td>
-                <td>{place.name}</td>
-                <td>{place.type}</td>
-                <td>{place.description}</td>
-                <td>{place.friends.toString()}</td>
-                <td>{place.date}</td>
-                <td>
-                  <Button className="btn btn-primary" onClick ={() => getPlace(place._id)}>Update</Button>
-                </td>
-                <td>
-                  <Button className="btn btn-warning"  onClick={() =>handleDelete(place._id)}>Delete</Button>
-                </td>
-              </tr>
-            ); 
-          }) }
-        </tbody>
-      </Table>
+     <SearchBar />
+     {isLoading && <BeatLoader size={15} color={"#36D7B7"} />}
+     <RenderTable places={places} handleDelete={handleDelete} getPlace={getPlace} handleClose={handleClose} />
+      
       <AddPlaceModal show={showAddmodal} handleClose={handleClose} handleFormSubmit={handleFormSubmit} handleChange={handleChange} isSubmitting= {isSubmitting} />
       <UpdatePlaceModal show={showUpdatemodal} handleClose={handleClose} handleFormUpdate={handleFormUpdate} handleChange={handleChange} isSubmitting={isSubmitting} addformvalues = {addformvalues}  />
     </>

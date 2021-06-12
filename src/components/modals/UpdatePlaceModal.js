@@ -7,7 +7,7 @@ const UpdatePlaceModal = ({
   handleClose,
   handleChange,
   isSubmitting,
-  addformvalues
+  addformvalues,
 }) => {
   return (
     <>
