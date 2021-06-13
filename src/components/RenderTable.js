@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 import { Table, Button } from "react-bootstrap";
 
-const RenderTable = ({places, handleDelete, getPlace}) => {
-    return (
-        <>
-            <Table responsive striped bordered hover>
+const RenderTable = ({ places, handleDelete, getPlace }) => {
+  return (
+    <>
+      <Table responsive striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
@@ -19,28 +19,43 @@ const RenderTable = ({places, handleDelete, getPlace}) => {
           </tr>
         </thead>
         <tbody>
-          { places.map((place, index) => {
+          {places.length ===0  && (
+            <div className="d-flex justify-content-center align-items-center w-100">
+              <em>no records found!</em>
+            </div>
+          )}
+          {places.map((place, index) => {
             return (
               <tr key={place._id}>
-                <td>{index +1}</td>
+                <td>{index + 1}</td>
                 <td>{place.name}</td>
                 <td>{place.type}</td>
                 <td>{place.description}</td>
                 <td>{place.friends.toString()}</td>
                 <td>{place.date}</td>
                 <td>
-                  <Button className="btn btn-primary" onClick ={() => getPlace(place._id)}>Update</Button>
+                  <Button
+                    className="btn btn-primary"
+                    onClick={() => getPlace(place._id)}
+                  >
+                    Update
+                  </Button>
                 </td>
                 <td>
-                  <Button className="btn btn-warning"  onClick={() =>handleDelete(place._id)}>Delete</Button>
+                  <Button
+                    className="btn btn-warning"
+                    onClick={() => handleDelete(place._id)}
+                  >
+                    Delete
+                  </Button>
                 </td>
               </tr>
-            ); 
-          }) }
+            );
+          })}
         </tbody>
       </Table>
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default RenderTable
+export default RenderTable;
