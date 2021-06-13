@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import axios from "axios";
 import AddPlaceModal from "../components/modals/AddPlaceModal";
 import UpdatePlaceModal from "./modals/UpdatePlaceModal";
-import BeatLoader from "react-spinners/BeatLoader";
 import RenderTable from "../components/RenderTable";
 import SearchBar from "./SearchBar";
 // import { css } from '@emotion/react'
@@ -154,16 +153,13 @@ const Places = () => {
         input={input}
         handleSearch={handleSearch}
       />
-      {isLoading && (
-        <div className="beatloader">
-          <BeatLoader size={15} color={"#36D7B7"} />
-        </div>
-      )}
+      
       <RenderTable
         places={places}
         handleDelete={handleDelete}
         getPlace={getPlace}
         handleClose={handleClose}
+        isLoading={isLoading}
       />
       <AddPlaceModal
         show={showAddmodal}
