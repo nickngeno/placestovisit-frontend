@@ -14,6 +14,8 @@ const Places = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [input, setInput] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchResult, setSearchResult] = useState([]);
   const [addformvalues, setAddformvalues] = useState({
     _id: "",
     name: "",
@@ -26,7 +28,6 @@ const Places = () => {
   useEffect(() => {
     getPlaces();
   }, []);
-  console.log(input);
 
   const getPlaces = () => {
     axios("https://places-merncrud.herokuapp.com/places/list")
@@ -127,39 +128,33 @@ const Places = () => {
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
-    handleSearch(e);
-    if (input === "") {
-      setIsLoading(true);
-      getPlaces();
-    }
+    if (input !== "") setIsSearching(true);
+    else setIsSearching(false);
   };
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const myPlace = places.filter((place) =>
-      place.name.toLowerCase().includes(input.toLowerCase())
-    );
-    setPlaces(myPlace);
-    // console.log(myPlace)
-  }
+  useEffect(() => {
+    const searchInput = () => {
+      const myfilter = places.filter((item) =>
+        item.name.toLowerCase().includes(input.toLowerCase())
+      );
+      setSearchResult(myfilter);
+    };
+    searchInput();
+  }, [input, places]);
 
   return (
     <>
-      <Button className="mt-5 mb-3" onClick={() => setShowAddmodal(true)}>
+      <Button className="mt-3 mb-3" onClick={() => setShowAddmodal(true)}>
         Add place
       </Button>
-      <SearchBar
-        handleInputChange={handleInputChange}
-        input={input}
-        handleSearch={handleSearch}
-      />
-      
+      <SearchBar handleInputChange={handleInputChange} input={input} />
       <RenderTable
         places={places}
         handleDelete={handleDelete}
         getPlace={getPlace}
         handleClose={handleClose}
         isLoading={isLoading}
+        isSearching={isSearching}
+        searchResult={searchResult}
       />
       <AddPlaceModal
         show={showAddmodal}

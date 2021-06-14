@@ -17,23 +17,27 @@ body{
   justify-content: center;
   align-items: center;
 }
+.container {
+  max-width: 1170px !important;
+}
 h2 {
-  padding-top: 2rem;
+  padding: 1rem 0;
   font-family: 'Amatic SC', cursive;
   font-size: 3rem !important;
+  text-align: center;
+  /* background-color: yellow; */
+  width: 100%;
 }
 .content-section{
   height: 90vh;
   border: solid 1px rgb(156, 156, 156);
-  background-color: azure;
+  border-radius: 5px;
+  background-color: #d6d6d6;
   position: relative;
 }
 .beatloader {
-  width: 100%;
-  display: flex;
-  justify-content: center ;
-  align-items :center;
-  padding: 2rem;
+  padding: 1rem;
+  text-align: center;
 }
 .footer{
   text-align: center;
@@ -41,4 +45,18 @@ h2 {
   bottom: 0;
   left: 50%;
   transform: translate(-50%);
+}
+
+@media screen and (max-width: 600px){
+
+  .content-section{
+    height: 100vh;
+    padding-bottom: 5rem;
+  }
+  h2 {
+    font-size: 2rem !important;
+  }
+  .beatloader{
+    padding: 1rem;
+  }
 }
