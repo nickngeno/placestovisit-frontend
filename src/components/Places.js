@@ -132,6 +132,7 @@ const Places = () => {
     else setIsSearching(false);
   };
   useEffect(() => {
+    console.log("called")
     const searchInput = () => {
       const myfilter = places.filter((item) =>
         item.name.toLowerCase().includes(input.toLowerCase())
@@ -139,7 +140,7 @@ const Places = () => {
       setSearchResult(myfilter);
     };
     searchInput();
-  }, [input, places]);
+  }, [isSearching]);
 
   return (
     <>

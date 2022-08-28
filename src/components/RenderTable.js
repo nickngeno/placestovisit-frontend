@@ -10,7 +10,8 @@ const RenderTable = ({
   isLoading,
   isSearching,
 }) => {
-  // console.log(isSearching);
+  console.log(isSearching);
+  console.log(places);
   return (
     <>
       <Table responsive striped hover sz="sm">
@@ -53,10 +54,11 @@ const RenderTable = ({
                 </td>
               </tr>
             ))
-          ) : places.length === 0 ? (
+          ) :isLoading && typeof(places) =="undefined"? (
             <tr className="beatloader">
               <td colSpan="7">
-                <BeatLoader size={15} color={"#36D7B7"} />
+                <h5>No data found!</h5>
+                {/* <BeatLoader size={15} color={"#36D7B7"} /> */}
               </td>
             </tr>
           ) : (
